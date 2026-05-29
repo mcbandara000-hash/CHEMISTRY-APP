@@ -626,15 +626,256 @@ export const generateDynamicQuestions = (): Question[] => {
     list.push({
       id: qId,
       topic: "p-block",
-      subtopic: "සිලිකේට ව්‍යුහයන්",
+      subtopic: "සිලිකේට ව්‍යුහ හා බන්ධන",
       question_si: question,
       options_si: shuffledOptions,
       correctIndex: correctIndex,
-      explanation_si: `සිලිකේට ව්‍යුහයන් වර්ග කරනු ලබන්නේ ඒවායේ ඇති SiO₄⁴⁻ ඒකක හවුලේ තබාගන්නා ඔක්සිජන් පරමාණු සංඛ්‍යාව මතය. ඔක්සිජන් 0ක් හවුල් වන විට සරල විවික්ත සිලිකේට ද, ඔක්සිජන් 1ක් හවුල් වන විට Si₂O₇⁶⁻ (පයිරොසිලිකේට) ද, ඔක්සිජන් 2ක් හවුල් වන විට දාම හෝ චක්‍රීය සිලිකේට ද, ඔක්සිජන් 3ක් හවුල් වන විට ද්විමාන පත්‍ර සිලිකේට (Sheet silicates) ද, ඔක්සිජන් 4ම හවුල් වන විට ක්වාර්ට්ස් වැනි ත්‍රිමාණ ජාල සිලිකේට (3D Framework) ද සාදයි.`,
-      difficulty: "hard",
-      resource_ref: "අකාබනික රසායන සම්පත් පොත, p-ගොනුව, 72 පිටුව"
+      explanation_si: `සිලිකේට වර්ගීකරණය සිදු කරන්නේ ඒවායේ හවුල් වන ඔක්සිජන් පරමාණු ගණන අනුවයි: Orthosilicates = 0, Pyrosilicates = 1, Single-chain = 2, Sheet = 3, 3D Framework = 4. ඒ අනුව ${s.type} සඳහා එක් සිලිකන් පරමාණුවකට හවුල් ඔක්සිජන් සංඛ්‍යාව ${s.shared} බැගින් වේ. නිදසුනක් ලෙස ${s.example} දැක්විය හැක.`,
+      difficulty: "medium",
+      resource_ref: "අකාබනික රසායන සම්පත් පොත, p-ගොනුව, 88 පිටුව"
     });
   }
+
+  // =========================================================================
+  // ADDITIONAL SYLLABUS TOPICS: Organic, Bonding, Kinetics, Equilibrium, Thermochemistry, Gas Laws
+  // =========================================================================
+
+  // 7.1 Organic Functional Groups & IUPAC (15 questions)
+  const organicCompounds = [
+    { formula: "CH₃CH₂CH₂OH", iupac: "propan-1-ol", functional: "ප්‍රාථමික ඇල්කොහොල", reagent: "සෝඩියම් ලෝහය සමඟ H₂ බුබුළු දේ" },
+    { formula: "CH₃COCH₃", iupac: "propanone", functional: "කීටෝන", reagent: "2,4-DNPH සමඟ තැඹිලි අවක්ෂේපය දේ" },
+    { formula: "CH₃CHO", iupac: "ethanal", functional: "ඇල්ඩිහයිඩ", reagent: "Tollens සමඟ රිදී කැඩපත දේ" },
+    { formula: "CH₃COOH", iupac: "ethanoic acid", functional: "කාබොක්සිලික් අම්ල", reagent: "NaHCO₃ සමඟ CO₂ බුබුළු දේ" },
+    { formula: "CH₃COOCH₂CH₃", iupac: "ethyl ethanoate", functional: "එස්ටර", reagent: "NaOH සමඟ සබන්කරණ ප්‍රතික්‍රියාව දේ" }
+  ];
+  for (let i = 0; i < 15; i++) {
+    const data = organicCompounds[i % organicCompounds.length];
+    const qId = `dyn_organic_f_${i}`;
+    const askIupac = i % 2 === 0;
+
+    const question = askIupac
+      ? `${data.formula} යන කාබනික සංයෝගයේ IUPAC නාමය කුමක්ද?`
+      : `${data.iupac} සංයෝගයේ පවතින ප්‍රධාන ක්‍රියාකාරී කාණ්ඩය සහ එය හඳුනාගැනීමේ ලාක්ෂණික පරීක්ෂණයක් වන්නේ කුමක්ද?`;
+
+    const options = askIupac
+      ? [
+          data.iupac,
+          data.iupac.replace("propan", "butan").replace("ethan", "methan"),
+          data.iupac.replace("1-ol", "2-ol"),
+          data.iupac === "propanone" ? "propanal" : "propanone",
+          "diethyl ether"
+        ]
+      : [
+          `${data.functional} - ${data.reagent}`,
+          `ඇල්කයින - Br₂/CCl₄ වර්ණහරණය`,
+          `ඇල්කයිල් හේලයිඩ - AgNO₃ සමඟ අවක්ෂේපය`,
+          `ඇමීන් - නයිට්‍රස් අම්ලය සමඟ NaNO₂/HCl`,
+          `ෆීනෝල් - FeCl₃ සමඟ දම් වර්ණය`
+        ];
+
+    const correctStr = options[0];
+    const shuffledOptions = [...options].sort(() => 0.45 + (i * 0.1) % 0.3);
+    const correctIndex = shuffledOptions.indexOf(correctStr);
+
+    list.push({
+      id: qId,
+      topic: "organic",
+      subtopic: "ක්‍රියාකාරී කාණ්ඩ සහ IUPAC නාමකරණය",
+      question_si: question,
+      options_si: shuffledOptions,
+      correctIndex,
+      explanation_si: `${data.formula} (${data.iupac}) යනු ${data.functional} වලට අයත් සංයෝගයකි. එහි ලාක්ෂණික ප්‍රතික්‍රියාව වනුයේ ${data.reagent} ලැබීමයි.`,
+      difficulty: "medium",
+      resource_ref: "කාබනික රසායනය සම්පත් පොත, 12 ඒකකය, 24-45 පිටු"
+    });
+  }
+
+  // 7.2 Hybridization & Shape (15 questions)
+  const bondingSpecies = [
+    { spec: "BeCl₂", hyb: "sp", shape: "රේඛීය (linear)", bondAngle: "180°" },
+    { spec: "BF₃", hyb: "sp²", shape: "තලීය ත්‍රිකෝණාකාර (trigonal planar)", bondAngle: "120°" },
+    { spec: "CH₄", hyb: "sp³", shape: "නිත්‍ය චතුස්තලීය (tetrahedral)", bondAngle: "109.5°" },
+    { spec: "PCl₅", hyb: "sp³d", shape: "ත්‍රිකෝණාකාර ද්විපිරමිඩීය (trigonal bipyramidal)", bondAngle: "90° සහ 120°" },
+    { spec: "SF₆", hyb: "sp³d²", shape: "අෂ්ටතලීය (octahedral)", bondAngle: "90°" }
+  ];
+  for (let i = 0; i < 15; i++) {
+    const data = bondingSpecies[i % bondingSpecies.length];
+    const qId = `dyn_bonding_h_${i}`;
+    const askHyb = i % 2 === 0;
+
+    const question = askHyb
+      ? `${data.spec} අණුවේ මධ්‍යම පරමාණුවේ මුහුම්කරණය (Hybridization) කුමක්ද?`
+      : `${data.spec} අණුවේ VSEPR මූලධර්මයට අනුව ජ්‍යාමිතික හැඩය සහ ආසන්න බන්ධන කෝණය කුමක්ද?`;
+
+    const options = askHyb
+      ? [
+          data.hyb,
+          data.hyb === "sp" ? "sp²" : "sp",
+          data.hyb === "sp³" ? "sp²" : "sp³",
+          "sp³d",
+          "sp³d²"
+        ]
+      : [
+          `${data.shape} - ${data.bondAngle}`,
+          `චතුස්තලීය - 109.5°`,
+          `කෝණික - 104.5°`,
+          `ත්‍රිකෝණාකාර පිරමිඩීය - 107°`,
+          `සමතල චතුරස්‍රකාර - 90°`
+        ];
+
+    const correctStr = options[0];
+    const shuffledOptions = [...options].sort(() => 0.52 + (i * 0.08) % 0.3);
+    const correctIndex = shuffledOptions.indexOf(correctStr);
+
+    list.push({
+      id: qId,
+      topic: "bonding",
+      subtopic: "මුහුම්කරණය සහ අණුක හැඩයන්",
+      question_si: question,
+      options_si: shuffledOptions,
+      correctIndex,
+      explanation_si: `${data.spec} හි මධ්‍යම පරමාණුව වටා ඇති යුගල ගණන අනුව ලැබෙන මුහුම්කරණය ${data.hyb} වන අතර එහි සැබෑ ජ්‍යාමිතික හැඩය ${data.shape} වේ.`,
+      difficulty: "medium",
+      resource_ref: "රසායනික බන්ධන සම්පත් පොත, 2 වන ඒකකය, 38 පිටුව"
+    });
+  }
+
+  // 7.3 Kinetics rates (15 questions)
+  for (let i = 0; i < 15; i++) {
+    const qId = `dyn_kinetics_r_${i}`;
+    const factor = ["සාන්ද්‍රණය වැඩි කිරීම", "උෂ්ණත්වය වැඩි කිරීම", "උත්ප්‍රේරකයක් එකතු කිරීම", "ස්පර්ශ පෘෂ්ඨ වර්ගඵලය වැඩි කිරීම"][i % 4];
+    const effect = [
+      "ඒකක පරිමාවක ඇති සක්‍රිය ගැටුම් සංඛ්‍යාව වැඩි කරයි.",
+      "සක්‍රියන ශක්තිය ඉක්මවා යන ප්‍රභාගය ඝාතීයව වැඩි කරයි.",
+      "සක්‍රියන ශක්තිය අඩු විකල්ප මාවතක් සපයයි.",
+      "ඝන ප්‍රතික්‍රියක වඩාත් ඉක්මනින් ද්‍රාව්‍ය කර ගැටුම් ඉඩකඩ වැඩි කරයි."
+    ][i % 4];
+
+    const question = `රසායනික චාලක විද්‍යාවට අනුව, ප්‍රතික්‍රියා පද්ධතියකට ${factor} මඟින් ප්‍රතික්‍රියා ශීඝ්‍රතාවය වැඩිවීමට ප්‍රධානතම හේතුව කුමක්ද?`;
+    const options = [
+      effect,
+      "ප්‍රතික්‍රියාවේ තාපය (ΔH) සංඛ්‍යාත්මකව දැවැන්ත ලෙස වෙනස් කිරීම.",
+      "ප්‍රතික්‍රියක අණුවල මුළු ස්කන්ධය සැලකිය යුතු ලෙස ශුන්‍ය කිරීම.",
+      "සමතුලිත නියතයේ (Kc) අගය කැපීපෙනෙන ලෙස වැඩි කිරීම.",
+      "ප්‍රතික්‍රියාවේ අනුපිළිවෙල (Order of reaction) වෙනස් කිරීම."
+    ];
+
+    const correctStr = options[0];
+    const shuffledOptions = [...options].sort(() => 0.23 + (i * 0.12) % 0.4);
+    const correctIndex = shuffledOptions.indexOf(correctStr);
+
+    list.push({
+      id: qId,
+      topic: "kinetics",
+      subtopic: "ප්‍රතික්‍රියා ශීඝ්‍රතාව කෙරෙහි බලපාන සාධක",
+      question_si: question,
+      options_si: shuffledOptions,
+      correctIndex,
+      explanation_si: `${factor} මඟින් සිදුවන්නේ ${effect} නිසා ප්‍රතික්‍රියා ශීඝ්‍රතාව ඍජුවම වේගවත් වීමයි.`,
+      difficulty: "easy",
+      resource_ref: "රසායනික චාලක විද්‍යාව සම්පත් පොත, 11 ඒකකය, 18 පිටුව"
+    });
+  }
+
+  // 7.4 Equilibrium Le Chatelier & Ksp (15 questions)
+  for (let i = 0; i < 15; i++) {
+    const qId = `dyn_equilibrium_e_${i}`;
+    const system = [
+      { rxn: "N₂(g) + 3H₂(g) ⇌ 2NH₃(g) (ΔH < 0)", shiftKey: "උෂ්ණත්වය වැඩි කිරීම", shiftRes: "පසුගාමී දිසාවට නෑඹුරු වීම (වම්පසට)" },
+      { rxn: "2SO₂(g) + O₂(g) ⇌ 2SO₃(g)", shiftKey: "පීඩනය වැඩි කිරීම", shiftRes: "පෙරගාමී දිසාවට නෑඹුරු වීම (දකුණට)" },
+      { rxn: "PCl₅(g) ⇌ PCl₃(g) + Cl₂(g)", shiftKey: "පරිමාව වැඩි කිරීම (පීඩනය අඩු කිරීම)", shiftRes: "පසුගාමී දිසාවෙන් නිදහස් වී පෙරගාමී (දකුණට) දිසාවට" },
+    ][i % 3];
+
+    const question = `ලී චැටලියර් (Le Chatelier) මූලධර්මයට අනුව ${system.rxn} සමතුලිත පද්ධතියක ${system.shiftKey} සිදුකළ විට සමතුලිතතාවය වෙනස් වන්නේ කෙසේද?`;
+    const options = [
+      system.shiftRes,
+      "කිසිදු වෙනසක් සිදු නොවේ.",
+      "ප්‍රතික්‍රියාව ක්ෂණිකව නතර වේ.",
+      "සමතුලිත නියතය (Kc) අසීමිත ලෙස ශුන්‍ය වේ.",
+      "පද්ධතියේ වායු මවුල ගණන සම්පූර්ණයෙන්ම ඉවත් වේ."
+    ];
+
+    const correctStr = options[0];
+    const shuffledOptions = [...options].sort(() => 0.47 + (i * 0.15) % 0.35);
+    const correctIndex = shuffledOptions.indexOf(correctStr);
+
+    list.push({
+      id: qId,
+      topic: "equilibrium",
+      subtopic: "ලී චැටලියර් මූලධර්මය",
+      question_si: question,
+      options_si: shuffledOptions,
+      correctIndex,
+      explanation_si: `ලී චැටලියර් මූලධර්මයට අනුව බාහිරින් බලපෑමක් යෙදූ විට පද්ධතිය එම බලපෑම අවම වන දිසාවට නෑඹුරු වේ. එබැවින් ${system.shiftKey} ට අනුරූප ප්‍රතිචාරය වනුයේ ${system.shiftRes} වේ.`,
+      difficulty: "medium",
+      resource_ref: "සමතුලිතතාවය සම්පත් පොත, 10 වන ඒකකය, 12 පිටුව"
+    });
+  }
+
+  // 7.5 Thermochemistry Hess (15 questions)
+  for (let i = 0; i < 15; i++) {
+    const qId = `dyn_thermochemistry_t_${i}`;
+    const question = `H₂(g) + 1/2 O₂(g) -> H₂O(l) ප්‍රතික්‍රියාවේ සම්මත ප්‍රතික්‍රියා එන්තැල්පිය ΔH° = -286 kJ mol⁻¹ වේ නම්, H₂O(l) මවුල 2ක් නිපදවීමේදී පරිවේෂ්ටනයට පිටවන මුළු තාප ප්‍රමාණය කොපමණද?`;
+    const options = [
+      "572 kJ",
+      "286 kJ",
+      "143 kJ",
+      "-286 kJ",
+      "-572 kJ"
+    ];
+
+    const correctStr = options[0];
+    const shuffledOptions = [...options].sort(() => 0.61 + (i * 0.05) % 0.3);
+    const correctIndex = shuffledOptions.indexOf(correctStr);
+
+    list.push({
+      id: qId,
+      topic: "thermochemistry",
+      subtopic: "ප්‍රතික්‍රියා තාපය සහ එන්තැල්පි වෙනස",
+      question_si: question,
+      options_si: shuffledOptions,
+      correctIndex,
+      explanation_si: "මවුල 1ක් සෑදීමට වැය වන/පිටවන තාපය -286 kJ mol⁻¹ වේ (සෘණ ලකුණ තාප දායක බව පෙන්වයි). එනිසා මවුල 2ක් සෑදීමේදී පිටවන තාපය = 286 × 2 = 572 kJ වේ.",
+      difficulty: "easy",
+      resource_ref: "ශක්ති විද්‍යාව සම්පත් පොත, 4 වන ඒකකය, 22 පිටුව"
+    });
+  }
+
+  // 7.6 Gas Laws (15 questions)
+  for (let i = 0; i < 15; i++) {
+    const qId = `dyn_gas_laws_g_${i}`;
+    const values = [
+      { law: "බොයිල්ගේ නියමය (Boyle's Law)", formula: "P ∝ 1/V (කාමර උෂ්ණත්වය සහ වායු ප්‍රමාණය නියත විට)", constant: "T සහ n (උෂ්ණත්වය සහ මවුල ගණන)" },
+      { law: "චාල්ස්ගේ නියමය (Charles's Law)", formula: "V ∝ T (පීඩනය සහ වායු ප්‍රමාණය නියත විට)", constant: "P සහ n (පීඩනය සහ මවුල ගණන)" },
+      { law: "ගයි-ලුසැක්ගේ නියමය (Gay-Lussac's Law)", formula: "P ∝ T (පරිමාව සහ වායු ප්‍රමාණය නියත විට)", constant: "V සහ n (පරිමාව සහ මවුල ගණන)" }
+    ][i % 3];
+
+    const question = `පරිපූර්ණ වායු හැසිරීම් යටතේ ${values.law} මඟින් නිරූපණය වන ප්‍රධාන සබඳතාවය කුමක්ද සහ එහිදී නියතව තබා ගන්නා සාධක මොනවාද?`;
+    const options = [
+      `${values.formula} වන අතර ${values.constant} නියත වේ.`,
+      `PV = nRT වන අතර සියලුම සාධක විචල්‍ය වේ.`,
+      `P = V වන අතර උෂ්ණත්වය ශුන්‍ය වේ.`,
+      `V = 22.4 dm³ වන අතර සම්මත කාමර උෂ්ණත්වය ඇත.`,
+      `P/V = Constant වන අතර ස්කන්ධය විචල්‍ය වේ.`
+    ];
+
+    const correctStr = options[0];
+    const shuffledOptions = [...options].sort(() => 0.33 + (i * 0.17) % 0.4);
+    const correctIndex = shuffledOptions.indexOf(correctStr);
+
+    list.push({
+      id: qId,
+      topic: "gas_laws",
+      subtopic: "වායු නියම සහ පරිපූර්ණ සමීකරණය",
+      question_si: question,
+      options_si: shuffledOptions,
+      correctIndex,
+      explanation_si: `${values.law} මඟින් ${values.formula} පවසයි. මෙහිදී ${values.constant} යන රාශීන් නියතව පවත්වාගත යුතුය.`,
+      difficulty: "easy",
+      resource_ref: "වායුමය අවස්ථාව සම්පත් පොත, 3 වන ඒකකය, 8 පිටුව"
+    });
+  }
+
 
 
   // ==========================================
