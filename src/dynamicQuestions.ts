@@ -889,7 +889,7 @@ export const generateDynamicQuestions = (): Question[] => {
     const qId = `dyn_coord_isomer_${i}`;
     const iso = isomerTypes[i % isomerTypes.length];
     
-    const question = `සමායෝජන රසායනයේදී, ${sub(iso.formula)} යන සංයෝග යුගලය එකිනෙකින් වෙනස් වීමට ප්‍රධානතම හේතුව වන සමාවයවිකතාවය (Isomerism) කුමක්ද?`;
+    const question = `අයන රසායනයේදී, ${sub(iso.formula)} යන සංයෝග යුගලය එකිනෙකින් වෙනස් වීමට ප්‍රධානතම හේතුව වන සමාවයවිකතාවය (Isomerism) කුමක්ද?`;
     
     const options = [
       `${iso.name}`,

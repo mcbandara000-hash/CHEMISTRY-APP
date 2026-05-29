@@ -94,17 +94,6 @@ function createDefaultProfile(username: string): UserProfile {
   };
 }
 
-// Mock Global Leaderboard to make application highly alive and competitive
-const MOCK_LEADERBOARD: Omit<LeaderboardEntry, "rank">[] = [
-  { username: "ChemStar_Kandy", xp: 3850, level: 8 },
-  { username: "Sandali_Bio", xp: 3120, level: 7 },
-  { username: "Ruwan_Uva", xp: 2650, level: 6 },
-  { username: "Amil_Anuradhapura", xp: 2100, level: 5 },
-  { username: "Prabath_Col7", xp: 1850, level: 4 },
-  { username: "Nisal_AL", xp: 1540, level: 4 },
-  { username: "Dilhani_Matara", xp: 1200, level: 3 }
-];
-
 async function startServer() {
   const app = express();
   const PORT = 3000;
@@ -414,13 +403,8 @@ async function startServer() {
     const currentUser = (req.query.username as string) || "GUEST";
     const db = getDb();
 
-    // Compile leaderboard from DB + MOCK top players
+    // Compile leaderboard from DB
     const allPlayersMap = new Map<string, { xp: number; level: number }>();
-
-    // Load mock players
-    MOCK_LEADERBOARD.forEach(p => {
-      allPlayersMap.set(p.username, { xp: p.xp, level: p.level });
-    });
 
     // Overwrite/insert actual players in database
     Object.keys(db.users).forEach(uName => {

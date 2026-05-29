@@ -31,6 +31,95 @@ import {
 import { Question, UserProfile, LeaderboardEntry, Topic, Badge } from "./types";
 import { PRESET_QUESTIONS, TOPICS, BADGES_LIST } from "./questionsData";
 
+const COMPANION_DECK = [
+  {
+    category: "FLAME TESTS",
+    category_si: "දැල් වර්ණ පරීක්ෂාව",
+    title_si: "s-ගොනුව සහ සාරවත් දැල් වර්ණ",
+    items: [
+      { key: "Li⁺ (Lithium)", val: "Crimson Red (තද ලෝහ රතු)" },
+      { key: "Na⁺ (Sodium)", val: "Golden Yellow (රන්වන් කහ)" },
+      { key: "K⁺ (Potassium)", val: "Lilac (ලා දම්)" },
+      { key: "Ca²⁺ (Calcium)", val: "Brick Red (ගඩොල් රතු)" },
+      { key: "Ba²⁺ (Barium)", val: "Apple Green (ඇපල් කොළ)" },
+      { key: "Cu²⁺ (Copper)", val: "Bluish Green (නිල්-කොළ)" },
+      { key: "Sr²⁺ (Strontium)", val: "Crimson Red (දම් රතු)" }
+    ]
+  },
+  {
+    category: "ION COLORS",
+    category_si: "ජලීය කැටායන වර්ණ",
+    title_si: "ජලීය සංක්‍රාන්ති ලෝහ කැටායන වර්ණ ප්‍රවණතා",
+    items: [
+      { key: "[Cu(H₂O)₆]²⁺", val: "Pale Blue (ලා නිල්) 🟦" },
+      { key: "[Fe(H₂O)₆]²⁺", val: "Pale Green (ලා කොළ) 🟩" },
+      { key: "[Fe(H₂O)₆]³⁺", val: "Yellow-Brown (කහ-දුඹුරු) 🟨" },
+      { key: "[Cr(H₂O)₆]³⁺", val: "Green / Violet (ලා කොළ හෝ දම්) 🟪" },
+      { key: "[Mn(H₂O)₆]²⁺", val: "Pale Pink (ලා රෝස) 🌸" },
+      { key: "[Co(H₂O)₆]²⁺", val: "Pink (රෝස) 💗" },
+      { key: "[Ni(H₂O)₆]²⁺", val: "Green (කොළ) 🟢" }
+    ]
+  },
+  {
+    category: "SOLUBILITY RULES",
+    category_si: "ද්‍රාව්‍යතා නීති",
+    title_si: "අකාබනික ලවණ ජලීය ද්‍රාව්‍යතා ප්‍රවණතා",
+    items: [
+      { key: "Nitrates (NO₃⁻)", val: "සියල්ලම ජල ද්‍රාව්‍ය වේ" },
+      { key: "Halides (Cl⁻/Br⁻/I⁻)", val: "ජල ද්‍රාව්‍ය වේ (Ag⁺, Pb²⁺, Hg₂²⁺ හැර)" },
+      { key: "Sulfates (SO₄²⁻)", val: "ජල ද්‍රාව්‍ය වේ (Ba²⁺, Pb²⁺, Ca²⁺, Sr²⁺ හැර)" },
+      { key: "Hydroxides (OH⁻)", val: "අද්‍රාව්‍ය වේ (group 1/NH₄⁺ හැර, Ca²⁺/Ba²⁺ මඳක් ද්‍රාව්‍යයි)" },
+      { key: "Carbonates (CO₃²⁻)", val: "අද්‍රාව්‍ය වේ (Group 1 හා NH₄⁺ හැර)" }
+    ]
+  },
+  {
+    category: "GAS CHEMISTRY",
+    category_si: "වායූන් හඳුනාගැනීම",
+    title_si: "ප්‍රධාන වායූන් සඳහා වන විශේෂ සහතික පරීක්ෂා",
+    items: [
+      { key: "NO₂ වායුව", val: "දුඹුරු පැහැති වායුවකි, තෙත් නිල් ලිට්මස් රතු කරයි" },
+      { key: "NH₃ වායුව", val: "තීව්‍ර ගන්ධැති සේරි වායුව, HCl සමඟ ඝන සුදු දුම් සාදයි" },
+      { key: "H₂S වායුව", val: "කුණු බිත්තර ගඳැති වායුව, Pb(CH₃COO)₂ කඩදාසි කළු කරයි" },
+      { key: "SO₂ වායුව", val: "සල්ෆර් දැවෙන ගන්ධය, ආම්ලික KMnO₄ ද්‍රාවණය අවර්ණ කරයි" },
+      { key: "Cl₂ වායුව", val: "කොළ පැහැයට හුරු කහ වායුව, පිෂ්ඨ-KI කඩදාසි නිල් පැහැ ගන්වයි" }
+    ]
+  },
+  {
+    category: "PRECIPITATE COLORS",
+    category_si: "අවක්ෂේපවල වර්ණ",
+    title_si: "ලක්ෂණික ලෝහ හයිඩ්‍රොක්සයිඩ් අවක්ෂේප සහ ප්‍රතික්‍රියා",
+    items: [
+      { key: "Fe(OH)₂", val: "සුදු-කොළ අපිරිසිදු අවක්ෂේපය (Dirty Green) 🤢" },
+      { key: "Fe(OH)₃", val: "රතු-දුඹුරු අවක්ෂේපය (Reddish Brown) 🟤" },
+      { key: "Cu(OH)₂", val: "ලා නිල් අවක්ෂේපය (NH₃ වැඩිපුර දැමූවිට [Cu(NH₃)₄]²⁺ තද නිල් වේ)" },
+      { key: "Al(OH)₃ / Zn(OH)₂", val: "ජෙලටිනීකරණ සුදු අවක්ෂේපය (NaOH වැඩිපුර දැමූවිට දියවේ)" },
+      { key: "Mn(OH)₂", val: "ලා රෝස පැහැ අවක්ෂේපය (තබා ඇතිවිට ඔක්සිකරණයෙන් දුඹුරු වේ)" }
+    ]
+  },
+  {
+    category: "INDICATOR COLORS",
+    category_si: "දර්ශක වර්ණ",
+    title_si: "අම්ල-භෂ්ම දර්ශකවල වර්ණ පරාස",
+    items: [
+      { key: "phenolphthalein", val: "අම්ල: අවර්ණ | භෂ්ම: තද රෝස පැහැය (Pink) 🌸" },
+      { key: "Methyl Orange", val: "අම්ල: රතු පැහැය | භෂ්ම: කහ පැහැය (Yellow) 🟨" },
+      { key: "Litmus Paper", val: "අම්ල: නිල් සිට රතු | භෂ්ම: රතු සිට නිල් 🔄" },
+      { key: "Thymol Blue", val: "අම්ල: රතු (pH 1.2-2.8) | භෂ්ම: නිල් (pH 8.0-9.6) 🔵" }
+    ]
+  },
+  {
+    category: "GROUP 2 TRENDS",
+    category_si: "කාණ්ඩ 2 ප්‍රවණතා",
+    title_si: "කාණ්ඩ 2 කැටායනවල තාප ස්ථායීතාව සහ ද්‍රාව්‍යතාවය",
+    items: [
+      { key: "ප්‍රකාශ කෝණී ස්ථායීතාවය", val: "BeCO₃ < MgCO₃ < CaCO₃ < SrCO₃ < BaCO₃ (පහළට වැඩිවේ)" },
+      { key: "සල්ෆේට් ද්‍රාව්‍යතාවය", val: "BeSO₄ > MgSO₄ > CaSO₄ > SrSO₄ > BaSO₄ (පහළට අඩුවේ)" },
+      { key: "හයිඩ්‍රොක්සයිඩ් ද්‍රාව්‍යතාවය", val: "Be(OH)₂ < Mg(OH)₂ < Ca(OH)₂ < Sr(OH)₂ < Ba(OH)₂ (පහළට වැඩිවේ)" },
+      { key: "හයිඩ්‍රොක්සයිඩ් භෂ්මීකරණ ශක්තිය", val: "පහළට යාමේදී භෂ්මීකරණ ප්‍රබලතාව ක්‍රමයෙන් වැඩිවේ" }
+    ]
+  }
+];
+
 export default function App() {
   // Logo intro animation state
   const [isAnimatingIntro, setIsAnimatingIntro] = useState(true);
@@ -52,6 +141,9 @@ export default function App() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [topics, setTopics] = useState<Topic[]>(TOPICS);
   const [activeTab, setActiveTab] = useState<"overview" | "topics" | "ai-gen" | "leaderboard" | "shop">("overview");
+  const [refTab, setRefTab] = useState<"flame" | "solub" | "colors">("flame");
+  const [companionCardIndex, setCompanionCardIndex] = useState(0);
+  const [companionTimer, setCompanionTimer] = useState(60);
 
   // Quiz execution state
   const [activeQuiz, setActiveQuiz] = useState<{
@@ -190,6 +282,40 @@ export default function App() {
       fetchTopics();
     }
   }, [username]);
+
+  // Dynamic Companion rotation timer ticking every second
+  useEffect(() => {
+    if (!username) return;
+    const interval = setInterval(() => {
+      setCompanionTimer(prev => {
+        if (prev <= 1) {
+          // Select next random card with different category than current index to enable organic learning
+          setCompanionCardIndex(curr => {
+            const nextIdx = Math.floor(Math.random() * COMPANION_DECK.length);
+            if (nextIdx === curr) {
+              return (curr + 1) % COMPANION_DECK.length;
+            }
+            return nextIdx;
+          });
+          return 60; // reset 60 seconds
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [username]);
+
+  const handleRollCompanion = () => {
+    setCompanionCardIndex(curr => {
+      const nextIdx = Math.floor(Math.random() * COMPANION_DECK.length);
+      if (nextIdx === curr) {
+        return (curr + 1) % COMPANION_DECK.length;
+      }
+      return nextIdx;
+    });
+    setCompanionTimer(60); // Reset timer
+  };
 
   // Sync leaderboard when opening its tab
   useEffect(() => {
@@ -1122,7 +1248,7 @@ export default function App() {
         <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto border-t border-white/5 pt-3 md:pt-0 md:border-none">
           <div className="flex items-center gap-2 bg-gradient-to-r from-orange-950/30 to-rose-950/30 px-3 py-1.5 rounded-xl border border-orange-500/20">
             <div className="flex flex-col items-end">
-              <span className="text-[8px] text-orange-400 uppercase tracking-widest font-black">ධාරාව (STREAK)</span>
+              <span className="text-[8px] text-orange-400 uppercase tracking-widest font-black">STREAK</span>
               <span className="text-lg font-black text-white leading-tight">
                 {profile ? String(profile.streak).padStart(2, "0") : "00"}
               </span>
@@ -1134,7 +1260,7 @@ export default function App() {
 
           <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-950/30 to-amber-950/30 px-3 py-1.5 rounded-xl border border-yellow-500/20">
             <div className="flex flex-col items-end">
-              <span className="text-[8px] text-yellow-400 uppercase tracking-widest font-black">කාසි ස්කෝරය</span>
+              <span className="text-[8px] text-yellow-400 uppercase tracking-widest font-black">POINTS</span>
               <span className="text-lg font-black text-white leading-tight">
                 {profile ? profile.coins : 100}
               </span>
@@ -1227,7 +1353,7 @@ export default function App() {
               }`}
             >
               <Trophy className="w-4 h-4" />
-              <span>නායක පුවරුව</span>
+              <span>LEADERBOARD</span>
             </button>
 
             <button
@@ -1614,8 +1740,8 @@ export default function App() {
                   {/* Badge collection cabinet */}
                   <div className="p-5 bg-slate-900/60 border border-white/10 rounded-3xl">
                     <h3 className="text-xs font-black text-white uppercase tracking-widest mb-4 flex items-center gap-2">
-                      <Award className="w-4 h-4 text-yellow-400" />
-                      ඇගයීම් අගුලු කැබිනට්ටුව (Earning Badges Lockbox)
+                       <Award className="w-4 h-4 text-yellow-400" />
+                       Earning Badges Lockbox
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {BADGES_LIST.map((badge: Badge) => {
@@ -1628,11 +1754,11 @@ export default function App() {
                                 ? "bg-gradient-to-b from-slate-900 to-slate-950 border-yellow-500/40 text-slate-100 shadow-[0_4px_12px_rgba(234,179,8,0.05)]" 
                                 : "bg-slate-950/20 border-white/5 text-slate-500 opacity-60"
                             }`}
-                            title={badge.requirementTxt_si}
+                            title={badge.requirementTxt_en}
                           >
                             <div className="mb-2 flex justify-center">{getBadgeIcon(badge.iconName)}</div>
-                            <h4 className="text-xs font-bold truncate leading-tight">{badge.name_si}</h4>
-                            <p className="text-[9px] text-slate-400 mt-1 uppercase tracking-wider">{badge.description_si}</p>
+                            <h4 className="text-xs font-bold truncate leading-tight">{badge.name_en}</h4>
+                            <p className="text-[9px] text-slate-400 mt-1 uppercase tracking-wider">{badge.description_en}</p>
                             
                             {hasBadge ? (
                               <span className="absolute top-1 right-1 text-[8px] tracking-wide text-yellow-400 bg-yellow-950/60 px-1 py-0.2 rounded font-black">UNLOCKED</span>
@@ -1865,10 +1991,7 @@ export default function App() {
                 <div id="leaderboard-panel" className="space-y-4">
                   <div className="p-4 bg-white/5 border border-white/10 rounded-2xl flex justify-between items-center">
                     <div>
-                      <h2 className="text-lg font-black text-white">ශිෂ්‍ය ගෝලීය නායක පුවරුව</h2>
-                      <p className="text-xs text-slate-400 mt-0.5">
-                        ලොව පුරා උසස් පෙළ සිසුන් අතරින් ඉහළම XP ලබාගත් ශූරයින්.
-                      </p>
+                      <h2 className="text-lg font-black text-white">LEADERBOARD</h2>
                     </div>
                     <button
                       id="btn-reload-leaderboard"
@@ -2029,57 +2152,82 @@ export default function App() {
         {/* Right column sidebar: Powerup status indicator & Daily challenges card */}
         <section className="lg:col-span-2 flex flex-col gap-4">
           
-          <div className="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl">
-            <h3 className="text-[10px] text-emerald-400 uppercase font-bold text-center tracking-widest mb-4">
-              වත්මන් උපකාරක ගොන්න
-            </h3>
-            
-            <div className="space-y-2.5">
-              <div className="p-3 bg-slate-950/60 border border-white/5 rounded-xl flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-bold text-white block">50 : 50 බණ්ඩල්</span>
-                  <span className="text-[9px] text-slate-500 uppercase">විකල්ප 2ක් කපන්න</span>
-                </div>
-                <span className="font-mono bg-slate-800 text-emerald-400 px-2.5 py-1 rounded text-xs font-black">
-                  {profile ? profile.inventory.fiftyFifty : 0}
-                </span>
-              </div>
-
-              <div className="p-3 bg-slate-950/60 border border-white/5 rounded-xl flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-bold text-white block">අමතර කාල කවුළු</span>
-                  <span className="text-[9px] text-slate-500 uppercase">තත්පර +30ක් එක් කරන්න</span>
-                </div>
-                <span className="font-mono bg-slate-800 text-emerald-400 px-2.5 py-1 rounded text-xs font-black">
-                  {profile ? profile.inventory.doubleTime : 0}
-                </span>
-              </div>
-
-              <div className="p-3 bg-slate-950/60 border border-white/5 rounded-xl flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-bold text-white block">මඟහැරීම් කාඩ්පත්</span>
-                  <span className="text-[9px] text-slate-500 uppercase">ප්‍රශ්්නයක් ස්කිප් කරන්න</span>
-                </div>
-                <span className="font-mono bg-slate-800 text-emerald-400 px-2.5 py-1 rounded text-xs font-black">
-                  {profile ? profile.inventory.skip : 0}
-                </span>
+          <div className="p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl flex flex-col gap-3">
+            <div className="flex justify-between items-center">
+              <h3 className="text-[10px] text-indigo-400 uppercase font-black tracking-widest flex items-center gap-1.5 animate-pulse">
+                <Sparkles className="w-3.5 h-3.5" /> DYNAMIC LAB COMPANION
+              </h3>
+              <div className="flex items-center gap-1.5 bg-indigo-950/40 px-2 py-0.5 rounded border border-indigo-500/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span className="text-[8px] text-indigo-300 font-bold uppercase tracking-wider">LIVE FEED</span>
               </div>
             </div>
 
-            <button
-              id="shop-shortcut-btn"
-              onClick={() => setActiveTab("shop")}
-              className="w-full mt-4 bg-slate-800 hover:bg-slate-700 text-xs text-white font-bold py-2 rounded-xl transition-all uppercase tracking-wider cursor-pointer text-center block"
-            >
-              තවත් මිලදී ගන්න 🛒
-            </button>
+            {/* Main active rotating companion card */}
+            {(() => {
+              const card = COMPANION_DECK[companionCardIndex];
+              return (
+                <div className="bg-slate-950/60 border border-white/5 p-3.5 rounded-xl min-h-[190px] flex flex-col justify-between transition-all duration-300">
+                  <div>
+                    {/* Header: category and timer */}
+                    <div className="flex justify-between items-center gap-2 mb-2 pb-2 border-b border-white/5">
+                      <span className="text-[9px] bg-indigo-500/15 text-indigo-300 px-2 py-0.5 rounded-md font-black border border-indigo-500/20 uppercase tracking-wider">
+                        {card.category_si}
+                      </span>
+                      <span className="text-[9px] text-slate-400 font-mono flex items-center gap-1">
+                        <Clock className="w-2.5 h-2.5 text-indigo-400 animate-spin-slow" />
+                        Next in {companionTimer}s
+                      </span>
+                    </div>
+
+                    <h4 className="text-[11px] font-bold text-white mb-2.5 tracking-tight">
+                      {card.title_si}
+                    </h4>
+
+                    {/* Render card items */}
+                    <div className="space-y-1.5">
+                      {card.items.map((item, idx) => (
+                        <div key={idx} className="flex justify-between items-start text-[10px] hover:bg-white/2 py-0.5 px-1.5 rounded transition-colors duration-150">
+                          <span className="font-semibold text-indigo-200 font-mono mr-1.5">{item.key}</span>
+                          <span className="text-white text-right font-medium">{item.val}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Actions & progress indicator at bottom of card */}
+                  <div className="mt-3.5 pt-2.5 border-t border-white/5 flex flex-col gap-2">
+                    {/* Tiny visual progress bar */}
+                    <div className="w-full bg-slate-900 h-1 rounded-full overflow-hidden">
+                      <div 
+                        className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-1000"
+                        style={{ width: `${(companionTimer / 60) * 100}%` }}
+                      ></div>
+                    </div>
+
+                    <div className="flex justify-between items-center gap-2">
+                      <button 
+                        onClick={handleRollCompanion}
+                        className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors cursor-pointer border border-white/5 bg-slate-900/60 px-2.5 py-1 rounded-lg text-[9px] font-bold hover:bg-slate-900"
+                      >
+                        <RefreshCw className="w-2.5 h-2.5 text-indigo-400" />
+                        🎲 ROLL FACT CARD
+                      </button>
+                      <span className="text-slate-500 italic text-[7.5px]">
+                        * Auto-cycles every minute.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
 
           {/* Daily Challenge Card matching Immersive UI pattern nicely */}
           <div className="p-4 bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl mt-auto">
             <span className="text-[9px] font-black text-blue-300 uppercase tracking-widest block mb-1">දෛනික විශේෂ අභියෝගය</span>
             <div className="text-[11px] leading-relaxed text-white mb-3">
-              s/p-block හෝ සමායෝජන ප්‍රශ්නාවලියක් 100% ක නිරවද්‍යතාවයකින් යුතුව සම්පූර්ණ කරන්න.
+              s/p-block හෝ අයන රසායන ප්‍රශ්නාවලියක් 100% ක නිරවද්‍යතාවයකින් යුතුව සම්පූර්ණ කරන්න.
             </div>
             <div className="flex justify-between items-center pt-2 border-t border-white/5">
               <span className="text-xs font-bold text-yellow-400">+500 XP Rewards</span>
