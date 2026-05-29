@@ -920,7 +920,7 @@ export default function App() {
             <span className="text-white font-black">A/L PRO</span>
           </h1>
           <p className="text-xs text-slate-400 uppercase tracking-widest font-black mt-1.5">
-            උසස් පෙළ රසායන ක්‍රීඩා පීඨය
+            Advanced Level Chemistry Gaming Suite
           </p>
           <p className="text-[10px] text-slate-500 mt-1">
             Sri Lankan G.C.E. Advanced Level Chemistry Suite
@@ -959,13 +959,13 @@ export default function App() {
             </div>
 
             <span className="text-[10px] uppercase tracking-[0.25em] text-emerald-400 font-black bg-emerald-950/40 px-3 py-1.5 rounded-full border border-emerald-500/20 inline-block mb-3 text-xs">
-              ශ්‍රී ලංකා උසස් පෙළ රසායන විද්‍යාව
+              Sri Lankan G.C.E. Advanced Level Chemistry
             </span>
             <h1 className="text-4xl font-extrabold tracking-tight text-white mb-1.5">
               CHEM<span className="text-emerald-400">A/L</span> PRO
             </h1>
             <p className="text-[10px] text-slate-400 uppercase tracking-[0.15em] font-black mb-8">
-              උසස් පෙළ රසායන විද්වත් මධ්‍යස්ථානය
+              Advanced Level Chemistry Mastery Center
             </p>
 
             {/* Selection buttons */}
@@ -1312,7 +1312,7 @@ export default function App() {
             <span>A/L PRO</span>
           </div>
           <div className="text-[9px] text-slate-400 tracking-[0.25em] uppercase font-bold text-center">
-            උසස් පෙළ රසායන විද්‍යා පීඨය
+            Advanced Level Chemistry Suite
           </div>
         </div>
 
@@ -1730,7 +1730,7 @@ export default function App() {
                         ඔබේ රසායන විද්‍යා දැනුම සුපිරික්සමු!
                       </h2>
                       <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                        ශ්‍රී ලංකා උසස් පෙළ විභාග ප්‍රශ්න පත්‍රවල අකාබනික, කාබනික, බන්ධන, සමතුලිතතාවය, චාලක විද්‍යාව, තාප රසායනය, වායු ලැබ් හා වෙනත් සංකීර්ණ exceptions පිළිබඳ සෙල්ලම් කරමින් ඉගෙන ගන්න.
+                        Play and learn about inorganic, organic, bonding, equilibrium, kinetics, thermochemistry, gas labs, and other complex exceptions in Sri Lankan G.C.E. Advanced Level Chemistry exam papers.
                       </p>
 
                       <div className="flex flex-wrap gap-2.5 mt-5">
@@ -2324,13 +2324,13 @@ export default function App() {
       {/* Footer Bar */}
       <footer className="w-full bg-slate-950/80 py-4 px-6 md:px-8 flex flex-col md:flex-row gap-2 items-center justify-between border-t border-white/5 text-[10px] text-slate-500 mt-auto">
         <div className="flex gap-4 items-center">
-          <span>© 2026 CHEM A/L PRO. සර්ව හිමිකම් ඇවිරිණි.</span>
+          <span>© 2026 CHEM A/L PRO. All Rights Reserved.</span>
           <span className="hidden md:inline">|</span>
-          <span>මූලාශ්‍රය: අකාබනික රසායන විද්‍යාව අධ්‍යාපනික සම්පත් පොත (NIE)</span>
+          <span>Source: NIE Chemistry Educational Resource Book</span>
         </div>
         <div className="flex gap-4 uppercase tracking-widest">
           <span className="hover:text-slate-300 cursor-pointer text-[9px]" onClick={() => showToast("සම්පත් පොතේ 13-138 පිටු ආවරණය වේ.", "info")}>Syllabus Notes</span>
-          <span className="hover:text-slate-300 cursor-pointer text-[9px]" onClick={() => showToast("විමසීම්: mcbandara000@gmail.com", "info")}>සහාය (Support)</span>
+          <span className="hover:text-slate-300 cursor-pointer text-[9px]" onClick={() => showToast("විමසීම්: mcbandara000@gmail.com", "info")}>Support</span>
         </div>
       </footer>
 
