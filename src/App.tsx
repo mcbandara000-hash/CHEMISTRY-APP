@@ -26,7 +26,9 @@ import {
   PlusCircle,
   Dna,
   RefreshCw,
-  X
+  X,
+  Sun,
+  Moon
 } from "lucide-react";
 import { Question, UserProfile, LeaderboardEntry, Topic, Badge } from "./types";
 import { PRESET_QUESTIONS, TOPICS, BADGES_LIST } from "./questionsData";
@@ -192,6 +194,27 @@ const COMPANION_DECK = [
 ];
 
 export default function App() {
+  // Theme state and toggling
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    return (localStorage.getItem("chem_al_theme") as "dark" | "light") || "dark";
+  });
+
+  useEffect(() => {
+    if (theme === "light") {
+      document.body.classList.add("light-theme");
+      document.body.classList.remove("dark-theme");
+    } else {
+      document.body.classList.add("dark-theme");
+      document.body.classList.remove("light-theme");
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    localStorage.setItem("chem_al_theme", nextTheme);
+  };
+
   // Logo intro animation state
   const [isAnimatingIntro, setIsAnimatingIntro] = useState(true);
 
@@ -949,6 +972,14 @@ export default function App() {
     if (authScreen === "landing") {
       return (
         <div id="landing-stage" className="min-h-screen bg-[#050b1a] text-slate-100 flex flex-col justify-center items-center font-sans overflow-x-hidden p-6 relative">
+          <button
+            onClick={toggleTheme}
+            className="absolute top-4 right-4 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-white/10 text-slate-300 hover:text-white transition-all cursor-pointer flex items-center gap-2 z-50 text-xs font-bold shadow-md"
+            title="Theme Toggle"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-500" />}
+            <span>{theme === "dark" ? "ලා පැහැය (Light)" : "අඳුරු පැහැය (Dark)"}</span>
+          </button>
           <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none"></div>
           <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[140px] pointer-events-none"></div>
 
@@ -1003,6 +1034,14 @@ export default function App() {
     if (authScreen === "signin") {
       return (
         <div id="signin-stage" className="min-h-screen bg-[#050b1a] text-slate-100 flex flex-col justify-center items-center font-sans p-6 relative">
+          <button
+            onClick={toggleTheme}
+            className="absolute top-4 right-4 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-white/10 text-slate-300 hover:text-white transition-all cursor-pointer flex items-center gap-2 z-50 text-xs font-bold shadow-md"
+            title="Theme Toggle"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-500" />}
+            <span>{theme === "dark" ? "ලා පැහැය (Light)" : "අඳුරු පැහැය (Dark)"}</span>
+          </button>
           <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none"></div>
           <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[140px] pointer-events-none"></div>
 
@@ -1099,6 +1138,14 @@ export default function App() {
     if (authScreen === "signup") {
       return (
         <div id="signup-stage" className="min-h-screen bg-[#050b1a] text-slate-100 flex flex-col justify-center items-center font-sans p-6 relative">
+          <button
+            onClick={toggleTheme}
+            className="absolute top-4 right-4 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-white/10 text-slate-300 hover:text-white transition-all cursor-pointer flex items-center gap-2 z-50 text-xs font-bold shadow-md"
+            title="Theme Toggle"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-500" />}
+            <span>{theme === "dark" ? "ලා පැහැය (Light)" : "අඳුරු පැහැය (Dark)"}</span>
+          </button>
           <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none"></div>
           <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[140px] pointer-events-none"></div>
 
@@ -1296,14 +1343,24 @@ export default function App() {
               </span>
             </div>
           </div>
-          <button 
-            id="user-logout-btn"
-            onClick={handleLogout}
-            className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white"
-            title="නික්ම යන්න"
-          >
-            <LogOut className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button 
+              id="mobile-theme-toggle-btn"
+              onClick={toggleTheme}
+              className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center cursor-pointer"
+              title="Theme Toggle"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-500" />}
+            </button>
+            <button 
+              id="user-logout-btn"
+              onClick={handleLogout}
+              className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center cursor-pointer"
+              title="නික්ම යන්න"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-col items-center">
@@ -1338,6 +1395,16 @@ export default function App() {
             </div>
             <Coins className="w-5 h-5 text-yellow-400" />
           </div>
+
+          <button 
+            id="desktop-theme-toggle-btn"
+            onClick={toggleTheme}
+            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-400 hover:text-white hover:bg-emerald-500/10 transition-all cursor-pointer"
+            title="Theme Toggle"
+          >
+            {theme === "dark" ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-blue-500" />}
+            <span>{theme === "dark" ? "ලා පැහැය" : "අඳුරු පැහැය"}</span>
+          </button>
 
           <button 
             id="desktop-logout-btn"
@@ -1825,11 +1892,11 @@ export default function App() {
                                 ? "bg-gradient-to-b from-slate-900 to-slate-950 border-yellow-500/40 text-slate-100 shadow-[0_4px_12px_rgba(234,179,8,0.05)]" 
                                 : "bg-slate-950/20 border-white/5 text-slate-500 opacity-60"
                             }`}
-                            title={badge.requirementTxt_en}
+                            title={badge.requirementTxt_si}
                           >
                             <div className="mb-2 flex justify-center">{getBadgeIcon(badge.iconName)}</div>
-                            <h4 className="text-xs font-bold truncate leading-tight">{badge.name_en}</h4>
-                            <p className="text-[9px] text-slate-400 mt-1 uppercase tracking-wider">{badge.description_en}</p>
+                            <h4 className="text-xs font-bold truncate leading-tight">{badge.name_si}</h4>
+                            <p className="text-[9px] text-slate-400 mt-1 uppercase tracking-wider">{badge.description_si}</p>
                             
                             {hasBadge ? (
                               <span className="absolute top-1 right-1 text-[8px] tracking-wide text-yellow-400 bg-yellow-950/60 px-1 py-0.2 rounded font-black">UNLOCKED</span>

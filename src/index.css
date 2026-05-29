@@ -1,1 +1,243 @@
 @import "tailwindcss";
+
+/* ----------------------------------------------------
+   LIGHT THEME OVERRIDES (Perfect High Contrast & Readability)
+   ---------------------------------------------------- */
+body.light-theme {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+body.light-theme .min-h-screen {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Background gradient glows - reduce opacity/visibility to prevent washing out light elements */
+body.light-theme .blur-\[140px\] {
+  opacity: 0.15;
+}
+
+/* Cards & Containers Overrides */
+body.light-theme .bg-slate-900\/60,
+body.light-theme .bg-slate-900\/55,
+body.light-theme .bg-slate-900\/50,
+body.light-theme .bg-slate-900\/40,
+body.light-theme .bg-slate-900,
+body.light-theme .bg-slate-850,
+body.light-theme .bg-slate-800,
+body.light-theme .bg-slate-800\/80,
+body.light-theme .bg-slate-950,
+body.light-theme .bg-slate-950\/50,
+body.light-theme .bg-slate-950\/60,
+body.light-theme .bg-slate-950\/80,
+body.light-theme .bg-white\/5,
+body.light-theme .p-4.bg-white\/5,
+body.light-theme #user-info-card,
+body.light-theme #leaderboard-panel > div,
+body.light-theme #top-hud-navbar,
+body.light-theme #global-toast-msg,
+body.light-theme #custom-confirm-modal > div {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03), 0 10px 15px -3px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Borders adjustment to light grey */
+body.light-theme .border-white\/10,
+body.light-theme .border-white\/5,
+body.light-theme .border-white\/20,
+body.light-theme .border {
+  border-color: #cbd5e1 !important;
+}
+
+/* Text elements */
+body.light-theme .text-slate-100,
+body.light-theme .text-slate-200,
+body.light-theme .text-slate-350,
+body.light-theme .text-white,
+body.light-theme h1,
+body.light-theme h2,
+body.light-theme h3,
+body.light-theme h4 {
+  color: #0f172a !important;
+}
+
+/* Secondary & Muted text */
+body.light-theme .text-slate-300,
+body.light-theme .text-slate-400,
+body.light-theme .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Inactive Sidebar Sidebar Tabs */
+body.light-theme .text-slate-400.hover\:text-white {
+  color: #475569 !important;
+}
+body.light-theme .text-slate-400.hover\:text-white:hover {
+  color: #0f172a !important;
+  background-color: #e2e8f0 !important;
+}
+
+/* Forms & Input Elements */
+body.light-theme input,
+body.light-theme select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  border-width: 1.5px !important;
+}
+body.light-theme input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Specific Accent Text Color Tuning to be readable in Light Theme */
+body.light-theme .text-emerald-400,
+body.light-theme #sidebar-tab-overview.bg-emerald-500\/20 span,
+body.light-theme #sidebar-tab-topics.bg-emerald-500\/20 span,
+body.light-theme #sidebar-tab-ai-gen.bg-emerald-500\/20 span,
+body.light-theme #sidebar-tab-leaderboard.bg-emerald-500\/20 span,
+body.light-theme #sidebar-tab-shop.bg-emerald-500\/20 span {
+  color: #059669 !important; /* Rich Dark Emerald */
+}
+
+body.light-theme .text-blue-400 {
+  color: #2563eb !important; /* Rich Royal Blue */
+}
+
+body.light-theme .text-cyan-400 {
+  color: #0d9488 !important; /* Rich Teal */
+}
+
+body.light-theme .text-yellow-400 {
+  color: #d97706 !important; /* Rich Amber */
+}
+
+body.light-theme .text-orange-400 {
+  color: #ea580c !important; /* Rich Orange */
+}
+
+/* Soft Accent Background Boxes (like Pills, Badges and mini tables) */
+body.light-theme .bg-emerald-950\/40,
+body.light-theme .bg-emerald-500\/20,
+body.light-theme .bg-emerald-550\/20 {
+  background-color: #d1fae5 !important; /* light emerald container */
+  color: #065f46 !important;
+  border-color: #6ee7b7 !important;
+}
+
+body.light-theme .bg-blue-950\/40,
+body.light-theme .bg-blue-500\/20 {
+  background-color: #dbeafe !important; /* light blue container */
+  color: #1e40af !important;
+  border-color: #93c5fd !important;
+}
+
+body.light-theme .bg-yellow-950\/30,
+body.light-theme .bg-amber-950\/30 {
+  background-color: #fef3c7 !important; /* light yellow container */
+  color: #92400e !important;
+  border-color: #fde047 !important;
+}
+
+body.light-theme .bg-orange-950\/30,
+body.light-theme .bg-rose-950\/30 {
+  background-color: #ffedd5 !important; /* light orange container */
+  color: #9a3412 !important;
+  border-color: #fed7aa !important;
+}
+
+/* Explanatory notes box */
+body.light-theme #quiz-explanation-box {
+  background-color: #f0fdf4 !important; /* minty white */
+  border-color: #a7f3d0 !important;
+  color: #065f46 !important;
+}
+
+body.light-theme #quiz-explanation-box p {
+  color: #047857 !important;
+}
+
+/* Question box background */
+body.light-theme .bg-slate-950\/50 h2 {
+  color: #0f172a !important;
+}
+
+body.light-theme .bg-slate-950\/50 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* List/items that were bg-slate-950 inside cards */
+body.light-theme .bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+
+/* Quiz Option item list defaults (not answered yet) */
+body.light-theme button[id^="option-btn-"] {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+body.light-theme button[id^="option-btn-"]:hover {
+  background-color: #f1f5f9 !important;
+}
+
+/* Option letter prefix default inside option list */
+body.light-theme button[id^="option-btn-"] div {
+  background-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Special adjustments to ensure login inputs/buttons have correct styles in light mode */
+body.light-theme #btn-go-to-signup {
+  background-color: #f1f5f9 !important;
+  color: #059669 !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light-theme #btn-go-to-signup:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Footer stats in Auth stage */
+body.light-theme .border-t.border-white\/5 {
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+/* Toast backgrounds in light mode */
+body.light-theme #global-toast-msg.bg-emerald-950\/80 {
+  background-color: #d1fae5 !important;
+  color: #065f46 !important;
+  border-color: #34d399 !important;
+}
+
+body.light-theme #global-toast-msg.bg-rose-950\/80 {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+  border-color: #f87171 !important;
+}
+
+/* Topic specific card hover states & lists */
+body.light-theme .group .text-gray-400 {
+  color: #475569 !important;
+}
+
+/* For grid outlines, tags and specific tables */
+body.light-theme .bg-[#0b1329] {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light-theme .hover\:bg-slate-900\/80:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Shop and profile lists support */
+body.light-theme p.text-slate-400 {
+  color: #475569 !important;
+}
