@@ -1,0 +1,6 @@
+{
+  "name": "Inorganic Chemistry Quiz",
+  "description": "A gamified, curriculum-aligned Sinhala multiple-choice quiz system for the Sri Lankan A/L Inorganic Chemistry syllabus with streaks, adaptive stats, store power-ups, and server-side AI question generation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
