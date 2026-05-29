@@ -160,8 +160,11 @@ async function startServer() {
 
     const db = getDb();
 
-    // Check if username already exists in db key
-    if (db.users[cleanUsername]) {
+    // Check if username already exists case-insensitively
+    const usernameExists = Object.values(db.users).some(
+      (u: any) => u.username && u.username.toLowerCase() === cleanUsername.toLowerCase()
+    );
+    if (usernameExists) {
       return res.status(400).json({ error: "මෙම පරිශීලක නාමය දැනටමත් පද්ධතිය තුළ පවතී! කරුණාකර වෙනත් එකක් තෝරන්න." });
     }
 
@@ -200,7 +203,14 @@ async function startServer() {
     let foundUser: any = db.users[cleanInput];
     
     if (!foundUser) {
-      // Check if found by searching the email field of current users
+      // Check if found by searching the username field case-insensitively
+      foundUser = Object.values(db.users).find(
+        (u: any) => u.username && u.username.toLowerCase() === cleanInput.toLowerCase()
+      );
+    }
+    
+    if (!foundUser) {
+      // Check if found by searching the email field of current users case-insensitively
       foundUser = Object.values(db.users).find(
         (u: any) => u.email && u.email.toLowerCase() === cleanInput.toLowerCase()
       );
